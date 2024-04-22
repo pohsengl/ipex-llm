@@ -1,6 +1,39 @@
 repo_id:
   # - 'THUDM/chatglm2-6b'
-  - 'meta-llama/Llama-2-7b-chat-hf'
+  #- 'meta-llama/Llama-2-7b-chat-hf'
+  #- "mistralai/Mistral-7B-Instruct-v0.2"
+  #- "google/gemma-7b" # need transformer >=4.38
+  #- "tiiuae/falcon-7b"
+  #- "Qwen/Qwen1.5-4B" # need transformer >=4.37
+  #- "meta-llama/Meta-Llama-3-8B-Instruct"
+  # - "codellama/CodeLlama-7b-hf"
+  # - "deepseek-ai/deepseek-coder-7b-instruct-v1.5"
+  #- "microsoft/phi-2"
+
+  'meta-llama/Llama-2-7b-chat-hf'
+  "meta-llama/Meta-Llama-3-8B-Instruct"
+  "01-ai/Yi-6B"
+  "lmsys/vicuna-7b-v1.5"
+  "codellama/CodeLlama-7b-hf"
+  "deepseek-ai/deepseek-coder-7b-instruct-v1.5"
+  "ise-uiuc/Magicoder-S-DS-6.7B"
+
+  "google/gemma-2b"
+  "google/gemma-7b"
+  "google/codegemma-7b"
+
+  "mistralai/Mistral-7B-Instruct-v0.2"
+  "cognitivecomputations/dolphin-2.6-mistral-7b"
+
+  "microsoft/phi-2"
+
+  "Qwen/Qwen1.5-4B"
+
+  "tiiuae/falcon-7b"
+
+  "bigcode/starcoder2-3b"
+
+
   # - 'liuhaotian/llava-v1.5-7b' # requires a LLAVA_REPO_DIR env variables pointing to the llava dir; added only for gpu win related test_api now
 local_model_hub: 'path to your local model hub'
 warm_up: 1
