@@ -115,6 +115,8 @@ def run_model(repo_id, test_api, in_out_pairs, local_model_hub=None, warm_up=1, 
                             round(np.mean(result[in_out_pair], axis=0)[0]*1000.0, 2),
                             round(np.mean(result[in_out_pair], axis=0)[1]*1000.0, 2),
                             round(np.mean(result[in_out_pair], axis=0)[2]*1000.0, 2),
+                            round(np.mean(1.0/np.array(result[in_out_pair])[:, 0]), 2),
+                            round(np.mean(1.0/np.array(result[in_out_pair])[:, 1]), 2),
                             in_out_pair,
                             batch_size,
                             f'{int(np.mean(result[in_out_pair], axis=0)[3])}' +
@@ -125,7 +127,7 @@ def run_model(repo_id, test_api, in_out_pairs, local_model_hub=None, warm_up=1, 
                             round(result[in_out_pair][-1][5], 2),
                             result[in_out_pair][-1][6] if any(keyword in test_api for keyword in ['int4_gpu', 'int4_fp16_gpu_win', 'int4_loadlowbit_gpu', 'fp16_gpu', 'deepspeed_optimize_model_gpu']) else 'N/A',
                             streaming if 'win' in test_api else 'N/A'],
-                            ) 
+                            )
 
 
 def get_model_path(repo_id, local_model_hub):
@@ -1699,7 +1701,7 @@ if __name__ == '__main__':
                         in_out_pairs.remove(in_out)
             run_model(model, api, in_out_pairs, conf['local_model_hub'], conf['warm_up'], conf['num_trials'], conf['num_beams'],
                       conf['low_bit'], conf['cpu_embedding'], conf['batch_size'], streaming)
-        df = pd.DataFrame(results, columns=['model', '1st token avg latency (ms)', '2+ avg latency (ms/token)', 'encoder time (ms)',
+        df = pd.DataFrame(results, columns=['model', '1st token avg latency (ms)', '2+ avg latency (ms/token)', 'encoder time (ms)', '1st token avg throughput (token/s)', '2+ avg throughput (token/s)',
                                             'input/output tokens', 'batch_size', 'actual input/output tokens', 'num_beams', 'low_bit', 'cpu_embedding',
                                             'model loading time (s)', 'peak mem (GB)', 'streaming'])
         df.to_csv(csv_name)
