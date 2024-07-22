@@ -20,8 +20,9 @@ import os
 from harness_to_leaderboard import *
 from lm_eval import tasks, evaluator, utils, models
 
-from ipexllm import IPEXLLM
+from ipexllm import IPEXLLM, IPEXLLMNPU
 models.MODEL_REGISTRY['ipex-llm'] = IPEXLLM    # patch ipex-llm to harness
+models.MODEL_REGISTRY['ipex-llm-npu'] = IPEXLLMNPU    # patch ipex-llm to harness
 
 logging.getLogger("openai").setLevel(logging.WARNING)
 

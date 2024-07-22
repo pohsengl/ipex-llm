@@ -62,6 +62,6 @@ def parse_precision(precision, model="ipex-llm"):
     else:
         if model == "hf-causal":
             return f"bnb_type={precision}"
-        if model == "ipex-llm":
+        if model == "ipex-llm" or model == "ipex-llm-npu":
             return f"load_in_low_bit={precision}"
     raise RuntimeError(f"invald precision {precision}")    
