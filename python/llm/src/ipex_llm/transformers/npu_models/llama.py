@@ -107,9 +107,11 @@ def llama_model_forward(
     from ipex_llm.transformers.kv import DynamicNormalCache
     if use_cache and not isinstance(past_key_values, DynamicNormalCache):
         past_key_values = DynamicNormalCache.from_legacy_cache(past_key_values)
-        past_seen_tokens = past_key_values.get_seq_length()
+        #past_seen_tokens = past_key_values.get_seq_length()
 
     if cache_position is None:
+        past_seen_tokens = past_key_values.get_seq_length() \
+            if past_key_values is not None else 0
         cache_position = torch.arange(past_seen_tokens, past_seen_tokens + inputs_embeds.shape[1],
                                       device=inputs_embeds.device)
     # ipex-llm changes end
@@ -118,7 +120,7 @@ def llama_model_forward(
         position_ids = cache_position.unsqueeze(0)
 
     causal_mask = self._update_causal_mask(attention_mask, inputs_embeds,
-                                           cache_position, past_seen_tokens)
+                                           cache_position, past_key_values, output_attentions)
 
     # embed positions
     hidden_states = inputs_embeds
